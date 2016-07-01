@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aegon", "Aegon\Aegon.csproj", "{60EDA3C2-DC1E-47F9-83FB-891690FFAD16}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aegon.Tests", "Aegon.Tests\Aegon.Tests.csproj", "{D8094A07-F91E-428A-AE35-3FBD433267D9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{60EDA3C2-DC1E-47F9-83FB-891690FFAD16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60EDA3C2-DC1E-47F9-83FB-891690FFAD16}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60EDA3C2-DC1E-47F9-83FB-891690FFAD16}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60EDA3C2-DC1E-47F9-83FB-891690FFAD16}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8094A07-F91E-428A-AE35-3FBD433267D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8094A07-F91E-428A-AE35-3FBD433267D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8094A07-F91E-428A-AE35-3FBD433267D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8094A07-F91E-428A-AE35-3FBD433267D9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
