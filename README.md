@@ -1,5 +1,5 @@
 # Aegon
-Aegon the ASP MVC Conqueror
+Aegon the ASP Conqueror
 
 #To-do: 
  1. Navbars
