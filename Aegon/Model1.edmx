@@ -1,0 +1,139 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="MpiModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="MpiHeader_Test">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Code" Type="nvarchar" MaxLength="55" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="255" />
+          <Property Name="HCAUniverse" Type="nvarchar" MaxLength="50" />
+          <Property Name="Index" Type="nvarchar" MaxLength="55" />
+        </EntityType>
+        <EntityType Name="MpiReturns_Test">
+          <Key>
+            <PropertyRef Name="Code" />
+            <PropertyRef Name="Rtndate" />
+          </Key>
+          <Property Name="Code" Type="nvarchar" MaxLength="55" Nullable="false" />
+          <Property Name="Rtndate" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Rtnvalue" Type="float" />
+        </EntityType>
+        <Association Name="FK_MpiReturns_Test_MpiHeader_Test">
+          <End Role="MpiHeader_Test" Type="Self.MpiHeader_Test" Multiplicity="1" />
+          <End Role="MpiReturns_Test" Type="Self.MpiReturns_Test" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MpiHeader_Test">
+              <PropertyRef Name="Code" />
+            </Principal>
+            <Dependent Role="MpiReturns_Test">
+              <PropertyRef Name="Code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MpiModelStoreContainer">
+          <EntitySet Name="MpiHeader_Test" EntityType="Self.MpiHeader_Test" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MpiReturns_Test" EntityType="Self.MpiReturns_Test" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_MpiReturns_Test_MpiHeader_Test" Association="Self.FK_MpiReturns_Test_MpiHeader_Test">
+            <End Role="MpiHeader_Test" EntitySet="MpiHeader_Test" />
+            <End Role="MpiReturns_Test" EntitySet="MpiReturns_Test" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MpiModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="MpiHeader_Test">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Code" Type="String" MaxLength="55" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="HCAUniverse" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Index" Type="String" MaxLength="55" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="MpiReturns_Test" Relationship="Self.FK_MpiReturns_Test_MpiHeader_Test" FromRole="MpiHeader_Test" ToRole="MpiReturns_Test" />
+        </EntityType>
+        <EntityType Name="MpiReturns_Test">
+          <Key>
+            <PropertyRef Name="Code" />
+            <PropertyRef Name="Rtndate" />
+          </Key>
+          <Property Name="Code" Type="String" MaxLength="55" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Rtndate" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Rtnvalue" Type="Double" />
+          <NavigationProperty Name="MpiHeader_Test" Relationship="Self.FK_MpiReturns_Test_MpiHeader_Test" FromRole="MpiReturns_Test" ToRole="MpiHeader_Test" />
+        </EntityType>
+        <Association Name="FK_MpiReturns_Test_MpiHeader_Test">
+          <End Role="MpiHeader_Test" Type="Self.MpiHeader_Test" Multiplicity="1" />
+          <End Role="MpiReturns_Test" Type="Self.MpiReturns_Test" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MpiHeader_Test">
+              <PropertyRef Name="Code" />
+            </Principal>
+            <Dependent Role="MpiReturns_Test">
+              <PropertyRef Name="Code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MpiEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="MpiHeader_Test" EntityType="Self.MpiHeader_Test" />
+          <EntitySet Name="MpiReturns_Test" EntityType="Self.MpiReturns_Test" />
+          <AssociationSet Name="FK_MpiReturns_Test_MpiHeader_Test" Association="Self.FK_MpiReturns_Test_MpiHeader_Test">
+            <End Role="MpiHeader_Test" EntitySet="MpiHeader_Test" />
+            <End Role="MpiReturns_Test" EntitySet="MpiReturns_Test" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MpiModelStoreContainer" CdmEntityContainer="MpiEntities">
+          <EntitySetMapping Name="MpiHeader_Test">
+            <EntityTypeMapping TypeName="MpiModel.MpiHeader_Test">
+              <MappingFragment StoreEntitySet="MpiHeader_Test">
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="HCAUniverse" ColumnName="HCAUniverse" />
+                <ScalarProperty Name="Index" ColumnName="Index" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MpiReturns_Test">
+            <EntityTypeMapping TypeName="MpiModel.MpiReturns_Test">
+              <MappingFragment StoreEntitySet="MpiReturns_Test">
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Rtndate" ColumnName="Rtndate" />
+                <ScalarProperty Name="Rtnvalue" ColumnName="Rtnvalue" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

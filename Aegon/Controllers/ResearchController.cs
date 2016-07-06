@@ -1,4 +1,11 @@
-﻿using System.Web.Mvc;
+﻿using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Data.Entity.Core.EntityClient;
+using System.Data.SqlClient;
+using System.Linq;
+using System.Web.Mvc;
+using Dapper;
 
 namespace Aegon.Controllers
 {
@@ -10,10 +17,6 @@ namespace Aegon.Controllers
             return View();
         }
 
-        public void Test()
-        {
-            dynamic d = 7;
-            int i = d;
-        }
+      
     }
 }

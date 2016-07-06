@@ -4,3 +4,9 @@
 }
 
 <h2>Welcome to Products page</h2>
+
+
+@foreach (var product in Model)
+{
+    <p>@product.Name</p>
+}
