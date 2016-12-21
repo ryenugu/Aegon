@@ -11,7 +11,7 @@ namespace Aegon.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = "This is about in Home.";
 
             return View();
         }

@@ -1,31 +1,122 @@
-﻿using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Data.Entity.Core.EntityClient;
-using System.Data.SqlClient;
+﻿using System.Data.Entity;
 using System.Linq;
+using System.Net;
 using System.Web.Mvc;
-using Dapper;
 
 namespace Aegon.Controllers
 {
     public class ProductsController : Controller
     {
+        private readonly MpiEntities _db = new MpiEntities();
+
         // GET: Products
         public ActionResult Index()
         {
-            return View(GetAll());
+            return View(_db.MpiHeader_Test.ToList());
         }
 
-        public List<MpiHeader_Test> GetAll()
+        // GET: Products/Details/5
+        public ActionResult Details(string id)
         {
-            var efConnectionString = ConfigurationManager.ConnectionStrings["MpiEntities"].ConnectionString;
-            var builder = new EntityConnectionStringBuilder(efConnectionString);
-            var regularConnectionString = builder.ProviderConnectionString;
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var mpiHeaderTest = _db.MpiHeader_Test.Find(id);
+            if (mpiHeaderTest == null)
+            {
+                return HttpNotFound();
+            }
+            return View(mpiHeaderTest);
+        }
 
+        // GET: Products/Create
+        public ActionResult Create()
+        {
+            return View();
+        }
 
-            IDbConnection db = new SqlConnection(regularConnectionString);
-            return db.Query<MpiHeader_Test>("select * from Mpiheader_Test where name like 'a%' order by name").ToList();
+        // POST: Products/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "Code,Name,HCAUniverse,Index")] MpiHeader_Test mpiHeaderTest)
+        {
+            if (ModelState.IsValid)
+            {
+                _db.MpiHeader_Test.Add(mpiHeaderTest);
+                _db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            return View(mpiHeaderTest);
+        }
+
+        // GET: Products/Edit/5
+        public ActionResult Edit(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var mpiHeaderTest = _db.MpiHeader_Test.Find(id);
+            if (mpiHeaderTest == null)
+            {
+                return HttpNotFound();
+            }
+            return View(mpiHeaderTest);
+        }
+
+        // POST: Products/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "Code,Name,HCAUniverse,Index")] MpiHeader_Test mpiHeaderTest)
+        {
+            if (ModelState.IsValid)
+            {
+                _db.Entry(mpiHeaderTest).State = EntityState.Modified;
+                _db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(mpiHeaderTest);
+        }
+
+        // GET: Products/Delete/5
+        public ActionResult Delete(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var mpiHeaderTest = _db.MpiHeader_Test.Find(id);
+            if (mpiHeaderTest == null)
+            {
+                return HttpNotFound();
+            }
+            return View(mpiHeaderTest);
+        }
+
+        // POST: Products/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(string id)
+        {
+            var mpiHeaderTest = _db.MpiHeader_Test.Find(id);
+            _db.MpiHeader_Test.Remove(mpiHeaderTest);
+            _db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                _db.Dispose();
+            }
+            base.Dispose(disposing);
         }
     }
 }
